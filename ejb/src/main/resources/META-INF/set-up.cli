@@ -1,0 +1,10 @@
+batch
+
+jms-queue add --queue-address=inQueue --entries=[java:jboss/jms/queue/inQueue,java:jboss/exported/jms/queue/inQueue] --durable=true
+jms-queue add --queue-address=outQueue --entries=[java:jboss/jms/queue/outQueue,java:jboss/exported/jms/queue/outQueue] --durable=true
+
+/subsystem=ee:write-attribute(name=annotation-property-replacement,value=true)
+/subsystem=ee:write-attribute(name=jboss-descriptor-property-replacement,value=true)
+/subsystem=ee:write-attribute(name=spec-descriptor-property-replacement,value=true)
+
+run-batch

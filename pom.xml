@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!-- JBoss, Home of Professional Open Source Copyright 2012, Red Hat, Inc. 
+    and/or its affiliates, and individual contributors by the @authors tag. See 
+    the copyright.txt in the distribution for a full listing of individual contributors. 
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+    use this file except in compliance with the License. You may obtain a copy 
+    of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+    by applicable law or agreed to in writing, software distributed under the 
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+    OF ANY KIND, either express or implied. See the License for the specific 
+    language governing permissions and limitations under the License. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.wildfly.jms.mdb.wmq</groupId>
+    <artifactId>wildlfy-jms-mdb-wmq</artifactId>
+    <version>1.0</version>
+
+    <name>${project.artifactId}-${project.version}</name>
+    <description>JBoss AS GSS: Simple Queue MDB example</description>
+    <packaging>pom</packaging>
+
+    <url>http://jboss.org/jbossas</url>
+
+    <developers>
+        <developer>
+            <name>Tom Ross</name>
+            <email>tom2ross@gmail.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+
+    <modules>
+        <module>ejb</module>
+        <module>ear</module>
+    </modules>
+
+    <properties>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <wildfly.maven.plugin>5.1.2.Final</wildfly.maven.plugin>
+        <jakarat.ejb.version>4.0.1.redhat-00001</jakarat.ejb.version>
+        <jakarta.jms>3.1.0.redhat-00003</jakarta.jms>
+        <version.org.jboss.ejb3.ext>2.3.0.Final-redhat-00001</version.org.jboss.ejb3.ext>
+        <version.org.jboss.spec.bom>8.0.6.GA-redhat-00006</version.org.jboss.spec.bom>
+        <version.org.jboss.logging>3.1.4.GA</version.org.jboss.logging>
+
+        <!-- other plugin versions -->
+        <jboss.as.plugin.version>7.5.Final</jboss.as.plugin.version>
+        <compiler.plugin.version>3.14.0</compiler.plugin.version>
+        <ear.plugin.version>3.3.0</ear.plugin.version>
+        <version.ejb.plugin>2.3</version.ejb.plugin>
+        <jar.plugin.version>3.4.1</jar.plugin.version>
+
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+
+    </properties>
+
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-ee</artifactId>
+                <version>${version.org.jboss.spec.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.as.jms.wmq.mdb.ejb</groupId>
+                <artifactId>jboss-as-jms-wmq-mdb-ejb</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+                <type>ejb</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>${version.org.jboss.logging}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.jboss.ejb3</groupId>
+                <artifactId>jboss-ejb3-ext-api</artifactId>
+                <version>${version.org.jboss.ejb3.ext}</version>
+                <scope>provided</scope>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
+
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+                <!-- Compiler plugin enforces Java 1.6 compatibility and
+                    activates annotation processors -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${compiler.plugin.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>${ear.plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${jar.plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>${wildfly.maven.plugin}</version>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+            </plugins>
+
+        </pluginManagement>
+
+    </build>
+
+</project>
